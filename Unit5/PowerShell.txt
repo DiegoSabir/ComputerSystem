@@ -10,6 +10,7 @@ Moverse entre directorios
 cd documents
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
+Obtener los alias definidos en PowerShell
 
 get-alias
 
@@ -29,10 +30,7 @@ Pedir ayuda
 get-help comando a pedir ayuda
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-get-help
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Verlos miembros disponibles y las propiedades de los objetos devueltos por el siguiente comando.
 
 get-childitem | get-member
 
@@ -43,50 +41,42 @@ $numero=2
 $nombre="Diego"
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Mostrar variables (Tambien puedes escribir simplemente el nombre de la variable)
 
 write-host($nombre)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Darle a una variable un tipo de dato
 
 $fecha=[datetime]"23/05/2023"
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Metodo que devuelve que tipo de variable/objeto es
 
 $nombre.getType()
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Saber metodos y propiedades del objeto/variable
 
 $fecha | get-memer
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Trabajando metodos (en ese caso añade dias a la fecha 1)
 
 $fecha1=[datetime]"01/05/2023"
 $fecha2=$fecha.adddays(10)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Declarar array
 
 $colores="rojo","azul","verde"
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Acceder a una posicion del array (devuelve el azul)
 
 $colores[1]
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 OPERADORES ARITMETICOS
 
 +	-	*	/	%	
@@ -99,10 +89,9 @@ $num1/$num2
 write-host($num1/$num2)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 OPERADORES DE COMPARACION
 
--eq 		--> igual			1 -eq 1		
+-eq 		--> igual				1 -eq 1		
 -ne 		--> not igual			1 -ne 2
 -gt		--> mayor que			2 -gt 1
 -ge		--> mayor igual			2 -ge 1
@@ -112,7 +101,6 @@ OPERADORES DE COMPARACION
 -notlike	--> no igual (cadenas)		"caracola" -notlike "cola"		
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 OPERADORES LOGICOS
 
 -and		(5 -gt 4) -and (4-gt 3)
@@ -121,22 +109,155 @@ OPERADORES LOGICOS
 -xor		(5 -gt 4) -xor (4 -gt 5)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 OPERADORES TIPO DE DATO
 
 -is		$fecha -is [datetime]
--isnot		$fecha -isnot [datetime]
+-isnot	$fecha -isnot [datetime]
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-SCRIPTS	(Se trabaja con PowerShell ISE)
+SCRIPTS (Se trabaja con PowerShell ISE)		EN CASO DE ALGUN FALLO --> Set-ExecutionPolicy unrestricted
 
 [int]$edad=read-host "Introduzca la edad"
 if ($edad -ge 18) {
-	write-host "Es mayor de edad"
-else{
-	write-host "Es menor de edad"
+	write-host "Es adulto"
+elseif(($edad -lt 18) -and ($edad -gt 13)){
+	write-host "Es adolescente"
+}else {
+	write-host "Es infante"
 }
 write-host "FIN DE PROGRAMA"
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+$color=read-host "Introducir color semaforo"
+switch($color){
+	'rojo'{
+		write-host "Camino cerrado"
+		break;
+	}
+	'amarillo'{
+		write-host "Camino cerradonse"
+		break;
+	}
+	'verde'{
+		write-host "Camino abierto"
+		break;
+	}
+}
+write-host "FIN DE PROGRAMA"
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[int]$edad=read-host "Introduzca la edad"
+switch($edad){
+	{$edad -ge 18} {
+		write-host "Camino cerrado"
+		break;
+	}
+	{$edad -lt 18 -and $edad -ge 13} {
+		write-host "Es adolescente"
+		break;
+	}
+	default {
+		write-host "Es infante"
+		break;
+	}
+}
+write-host "FIN DE PROGRAMA"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+$veces=0
+while ($veces -lt 10) {
+	write-host "Hola"
+	$veces++
+}
+write-host "FIN DE PROGRAMA"
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+$veces=0
+do {
+	write-host "Hola"
+	$veces++
+}
+while ($veces -lt 10)
+
+write-host "FIN DE PROGRAMA"
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+$colores=@("azul","verde","rojo")
+foreach ($c in $colores){
+	write-host $c
+}
+write-host "FIN DE PROGRAMA"
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+for ($i=1; $i -le 10; $i++) {
+	write-host $i
+}
+write-host "FIN DE PROGRAMA"
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[int]$fin=read-host "Introduce un numero"
+for ($i=1; $i -le $fin; $i++) {
+	write-host $i
+}
+write-host "FIN DE PROGRAMA"
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+$nombre=read-host "Introduce un nombre"
+[int]$numero=read-host "Introduce un numero"
+
+for ($i=1; $i -le $numero; $i++) {
+	write-host $nombre
+}
+write-host "FIN DE PROGRAMA"
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[double]$sueldo=read-host "Introduce el sueldo"
+[int]$horas=read-host "Introduce las horas"
+[double]$salariohora=0
+
+$salariohora=$sueldo*$horas
+
+write-host "Su salario hora es $salario"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[int]$introduccion=0
+[int]$contraseña="1234"
+do {
+	$introduccion=read-host "Introduce la contraseña"
+}
+while ($introduccion -eq $contraseña)
+
+write-host "CORRECTO"
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[int]$i=read-host "Introduce un numero"
+$dibujo="*"
+
+for ($j=0; $j -le $i; $j++) {
+	write-host $dibujo
+	$dibujo=$dibujo +"*"
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+for ($i=1; $i -le 10; $i++) {
+	write-host "Tabla del $i"
+	for ($j=1; $j -le 10; $j++) {
+		
+		write-host "$i * $j = " ($i*$j)  
+	}
+	write-host "----------"
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
